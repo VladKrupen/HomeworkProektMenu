@@ -75,7 +75,20 @@ class Napoleon: MenuItem {
 }
     
 
-    
+let sendwitch = Sandwitch(name: "Бутерброд с курицей", price: 7)
+let steik = Steik(name: "Стэйк средней прожарки", price: 40)
+let coffee = Coffee(name: "Латте", price: 8)
+let napoleon = Napoleon(name: "Чизкейк", price: 10)
+
+func printMenuItem(menuItem: MenuItem) {
+    print("\(menuItem.name) \(menuItem.price) рублей")
+}
+
+
+
+
+
+
 
 
 class ViewController: UIViewController {
@@ -83,29 +96,9 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
-        
-        let sendwitch = Sandwitch(name: "Бутерброд с курицей", price: 7)
-        let steik = Steik(name: "Стэйк средней прожарки", price: 40)
-        let coffee = Coffee(name: "Латте", price: 8)
-        let napoleon = Napoleon(name: "Чизкейк", price: 10)
-        
-        
-        
-        
-        func printMenuItem(menuItem: MenuItem) {
-            print("\(menuItem.name) \(menuItem.price) рублей")
-        }
-        
+
         
         printMenuItem(menuItem: sendwitch)
-        
-        
-        
-        
-        
-       
-        
         
         
         
