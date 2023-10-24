@@ -39,6 +39,45 @@ class MenuItem{
     
 }
 
+
+class Sandwitch: MenuItem {
+        
+    override init(name: String, price: Int) {
+        super.init(name: name, price: price)
+    }
+        
+}
+    
+    
+class Steik: MenuItem {
+        
+    override init(name: String, price: Int) {
+        super.init(name: name, price: price)
+    }
+        
+}
+    
+class Coffee: MenuItem {
+        
+    override init(name: String, price: Int) {
+        super.init(name: name, price: price)
+    }
+        
+}
+    
+    
+class Napoleon: MenuItem {
+        
+    override init(name: String, price: Int) {
+        super.init(name: name, price: price)
+    }
+        
+}
+    
+
+    
+
+
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
@@ -46,10 +85,10 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         
-        let sendwitch = MenuItem(name: "Бутерброд с курицей", price: 7)
-        let steik = MenuItem(name: "Стэйк средней прожарки", price: 40)
-        let coffee = MenuItem(name: "Латте", price: 8)
-        let napoleon = MenuItem(name: "Чизкейк", price: 10)
+        let sendwitch = Sandwitch(name: "Бутерброд с курицей", price: 7)
+        let steik = Steik(name: "Стэйк средней прожарки", price: 40)
+        let coffee = Coffee(name: "Латте", price: 8)
+        let napoleon = Napoleon(name: "Чизкейк", price: 10)
         
         
         
@@ -60,6 +99,12 @@ class ViewController: UIViewController {
         
         
         printMenuItem(menuItem: sendwitch)
+        
+        
+        
+        
+        
+       
         
         
         
