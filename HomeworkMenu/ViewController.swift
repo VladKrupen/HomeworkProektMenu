@@ -7,6 +7,17 @@
 
 import UIKit
 
+class Singletone {
+    
+    static let shared = Singletone()
+    var totalPrice: Int = 0
+    private init() {}
+    
+    func increaseTotalPrice(price: Int) {
+        totalPrice += price
+    }
+}
+
 
 class Menu {
     
@@ -89,36 +100,33 @@ let menu = Menu(snacks: sendwitch, mainMenu: steik, beverages: [coffeeLatte, cof
 
 
 
-
-
-
 class ViewController: UIViewController {
     
     let textLabel = UILabel()
     
     let buttonSendwitch = {
         let buttonSendwitch = UIButton(type: .system)
-        buttonSendwitch.setTitle(sendwitch.name, for: .normal)
+        buttonSendwitch.setTitle(menu.snacks.name, for: .normal)
         return buttonSendwitch
     }()
     let buttonSteik = {
         let buttonSteik = UIButton(type: .system)
-        buttonSteik.setTitle(steik.name, for: .normal)
+        buttonSteik.setTitle(menu.mainMenu.name, for: .normal)
         return buttonSteik
     }()
     let buttonCoffeeLatte = {
         let buttonCoffeeLatte = UIButton(type: .system)
-        buttonCoffeeLatte.setTitle(coffeeLatte.name, for: .normal)
+        buttonCoffeeLatte.setTitle(menu.beverages[0].name, for: .normal)
         return buttonCoffeeLatte
     }()
     let buttonNapoleon = {
         let buttonNapoleon = UIButton(type: .system)
-        buttonNapoleon.setTitle(napoleon.name, for: .normal)
+        buttonNapoleon.setTitle(menu.dessert.name, for: .normal)
         return buttonNapoleon
     }()
     let buttonCoffeeAmericano = {
         let buttonCoffeeAmericano = UIButton(type: .system)
-        buttonCoffeeAmericano.setTitle(coffeeAmericano.name, for: .normal)
+        buttonCoffeeAmericano.setTitle(menu.beverages[1].name, for: .normal)
         return buttonCoffeeAmericano
     }()
     let buttonStart = {
@@ -144,6 +152,13 @@ class ViewController: UIViewController {
         view.addSubview(buttonCoffeeAmericano)
         view.addSubview(buttonStart)
         view.addSubview(buttonEnd)
+        view.addSubview(textLabel)
+        
+        textLabel.text = "\(Singletone.shared.totalPrice) руб."
+        textLabel.translatesAutoresizingMaskIntoConstraints = false
+        textLabel.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -100).isActive = true
+        textLabel.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
+     
         
         buttonCoffeeLatte.tintColor = .purple
         buttonCoffeeLatte.titleLabel?.font = UIFont.systemFont(ofSize: 25)
@@ -181,28 +196,80 @@ class ViewController: UIViewController {
         buttonStart.translatesAutoresizingMaskIntoConstraints = false
         buttonStart.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
         buttonStart.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 40).isActive = true
+        buttonStart.widthAnchor.constraint(equalToConstant: 100).isActive = true
         
-        buttonEnd.backgroundColor = .red
+        buttonEnd.backgroundColor = .gray
         buttonEnd.layer.cornerRadius = 15
         buttonEnd.titleLabel?.font = UIFont.systemFont(ofSize: 30)
         buttonEnd.translatesAutoresizingMaskIntoConstraints = false
         buttonEnd.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
         buttonEnd.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -40).isActive = true
+        buttonEnd.widthAnchor.constraint(equalToConstant: 100).isActive = true
 
+
+        buttonSendwitch.addTarget(self, action: #selector(buttonSendwitchTapped), for: .touchUpInside)
         
+        buttonSteik.addTarget(self, action: #selector(buttonSteikTapped), for: .touchUpInside)
+        
+        buttonCoffeeLatte.addTarget(self, action: #selector(buttonCoffeeLatteTapped), for: .touchUpInside)
+        
+        buttonNapoleon.addTarget(self, action: #selector(buttonNapoleonTapped), for: .touchUpInside)
+        
+        buttonCoffeeAmericano.addTarget(self, action: #selector(buttonCoffeAmericanoTapped), for: .touchUpInside)
+        
+        buttonStart.addTarget(self, action: #selector(buttonStartTapped), for: .touchUpInside)
+        
+        buttonEnd.addTarget(self, action: #selector(buttonEndTapped), for: .touchUpInside)
         
         
         
 
         // Do any additional setup after loading the view.
 
+                
         
-        printMenuItem(menuItem: sendwitch)
-        
-        
-        
+        }
+    
+    @objc func buttonSendwitchTapped(_ sender: UIButton) {
+        Singletone.shared.increaseTotalPrice(price: menu.snacks.price)
+        printMenuItem(menuItem: menu.snacks)
+    }
+    
+    @objc func buttonSteikTapped(_ sender: UIButton) {
+        Singletone.shared.increaseTotalPrice(price: menu.mainMenu.price)
+        printMenuItem(menuItem: menu.mainMenu)
+    }
+    
+    @objc func buttonCoffeeLatteTapped(_ sender: UIButton) {
+        Singletone.shared.increaseTotalPrice(price: menu.beverages[0].price)
+        printMenuItem(menuItem: menu.beverages[0])
+    }
+    
+    @objc func buttonNapoleonTapped(_ sender: UIButton) {
+        Singletone.shared.increaseTotalPrice(price: menu.dessert.price)
+        printMenuItem(menuItem: menu.dessert)
+    }
+    
+    @objc func buttonCoffeAmericanoTapped(_ sender: UIButton) {
+        Singletone.shared.increaseTotalPrice(price: menu.beverages[1].price)
+        printMenuItem(menuItem: menu.beverages[1])
+    }
+    
+    @objc func buttonStartTapped(_ sender: UIButton) {
+        buttonStart.backgroundColor = .gray
+        buttonEnd.backgroundColor = .red
+        Singletone.shared.totalPrice = 0
+        textLabel.text = "\(Singletone.shared.totalPrice) руб."
         
     }
+    
+    @objc func buttonEndTapped(_ sender: UIButton) {
+        buttonEnd.backgroundColor = .gray
+        buttonStart.backgroundColor = .green
+        print(Singletone.shared.totalPrice)
+        textLabel.text = "\(Singletone.shared.totalPrice) руб."
+    }
+
 
 
 }
