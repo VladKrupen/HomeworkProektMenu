@@ -18,6 +18,14 @@ class Singletone {
     }
 }
 
+class Restaurant {
+    let menu: Menu
+    
+    init(menu: Menu) {
+        self.menu = menu
+    }
+}
+
 
 class Menu {
     
@@ -98,9 +106,9 @@ func printMenuItem(menuItem: MenuItem) {
 
 let menu = Menu(snacks: sendwitch, mainMenu: steik, beverages: [coffeeLatte, coffeeAmericano], dessert: napoleon)
 
-var startProgramm = false
+var isShiftStarted = false
 
-
+let restaurant = Restaurant(menu: menu)
 
 
 
@@ -235,43 +243,43 @@ class ViewController: UIViewController {
         }
     
     @objc func buttonSendwitchTapped(_ sender: UIButton) {
-        if startProgramm == true {
-            Singletone.shared.increaseTotalPrice(price: menu.snacks.price)
-            printMenuItem(menuItem: menu.snacks)
+        if isShiftStarted == true {
+            Singletone.shared.increaseTotalPrice(price: restaurant.menu.snacks.price)
+            printMenuItem(menuItem: restaurant.menu.snacks)
         }
     }
     
     @objc func buttonSteikTapped(_ sender: UIButton) {
-        if startProgramm == true {
-            Singletone.shared.increaseTotalPrice(price: menu.mainMenu.price)
-            printMenuItem(menuItem: menu.mainMenu)
+        if isShiftStarted == true {
+            Singletone.shared.increaseTotalPrice(price: restaurant.menu.mainMenu.price)
+            printMenuItem(menuItem: restaurant.menu.mainMenu)
         }
     }
     
     @objc func buttonCoffeeLatteTapped(_ sender: UIButton) {
-        if startProgramm == true {
-            Singletone.shared.increaseTotalPrice(price: menu.beverages[0].price)
-            printMenuItem(menuItem: menu.beverages[0])
+        if isShiftStarted == true {
+            Singletone.shared.increaseTotalPrice(price: restaurant.menu.beverages[0].price)
+            printMenuItem(menuItem: restaurant.menu.beverages[0])
         }
     }
     
     @objc func buttonNapoleonTapped(_ sender: UIButton) {
-        if startProgramm == true {
-            Singletone.shared.increaseTotalPrice(price: menu.dessert.price)
-            printMenuItem(menuItem: menu.dessert)
+        if isShiftStarted == true {
+            Singletone.shared.increaseTotalPrice(price: restaurant.menu.dessert.price)
+            printMenuItem(menuItem: restaurant.menu.dessert)
         }
     }
     
     @objc func buttonCoffeAmericanoTapped(_ sender: UIButton) {
-        if startProgramm == true {
-            Singletone.shared.increaseTotalPrice(price: menu.beverages[1].price)
-            printMenuItem(menuItem: menu.beverages[1])
+        if isShiftStarted == true {
+            Singletone.shared.increaseTotalPrice(price: restaurant.menu.beverages[1].price)
+            printMenuItem(menuItem: restaurant.menu.beverages[1])
         }
     }
     
     @objc func buttonStartTapped(_ sender: UIButton) {
         print("\n   Начало смены ")
-        startProgramm = true
+        isShiftStarted = true
         buttonStart.backgroundColor = .gray
         buttonEnd.backgroundColor = .red
         Singletone.shared.totalPrice = 0
@@ -280,7 +288,7 @@ class ViewController: UIViewController {
     }
     
     @objc func buttonEndTapped(_ sender: UIButton) {
-        startProgramm = false
+        isShiftStarted = false
         buttonEnd.backgroundColor = .gray
         buttonStart.backgroundColor = .green
         print("\nВыручка составила \(Singletone.shared.totalPrice) руб.\n")
@@ -290,4 +298,5 @@ class ViewController: UIViewController {
 
 
 }
+
 
