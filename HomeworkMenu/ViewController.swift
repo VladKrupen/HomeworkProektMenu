@@ -101,6 +101,9 @@ let menu = Menu(snacks: sendwitch, mainMenu: steik, beverages: [coffeeLatte, cof
 var startProgramm = false
 
 
+
+
+
 class ViewController: UIViewController {
     
     let textLabel = UILabel()
@@ -267,6 +270,7 @@ class ViewController: UIViewController {
     }
     
     @objc func buttonStartTapped(_ sender: UIButton) {
+        print("\n   Начало смены ")
         startProgramm = true
         buttonStart.backgroundColor = .gray
         buttonEnd.backgroundColor = .red
@@ -279,7 +283,7 @@ class ViewController: UIViewController {
         startProgramm = false
         buttonEnd.backgroundColor = .gray
         buttonStart.backgroundColor = .green
-        print(Singletone.shared.totalPrice)
+        print("\nВыручка составила \(Singletone.shared.totalPrice) руб.\n")
         textLabel.text = "\(Singletone.shared.totalPrice) руб."
     }
 
