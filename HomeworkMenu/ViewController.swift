@@ -98,6 +98,7 @@ func printMenuItem(menuItem: MenuItem) {
 
 let menu = Menu(snacks: sendwitch, mainMenu: steik, beverages: [coffeeLatte, coffeeAmericano], dessert: napoleon)
 
+var startProgramm = false
 
 
 class ViewController: UIViewController {
@@ -231,31 +232,42 @@ class ViewController: UIViewController {
         }
     
     @objc func buttonSendwitchTapped(_ sender: UIButton) {
-        Singletone.shared.increaseTotalPrice(price: menu.snacks.price)
-        printMenuItem(menuItem: menu.snacks)
+        if startProgramm == true {
+            Singletone.shared.increaseTotalPrice(price: menu.snacks.price)
+            printMenuItem(menuItem: menu.snacks)
+        }
     }
     
     @objc func buttonSteikTapped(_ sender: UIButton) {
-        Singletone.shared.increaseTotalPrice(price: menu.mainMenu.price)
-        printMenuItem(menuItem: menu.mainMenu)
+        if startProgramm == true {
+            Singletone.shared.increaseTotalPrice(price: menu.mainMenu.price)
+            printMenuItem(menuItem: menu.mainMenu)
+        }
     }
     
     @objc func buttonCoffeeLatteTapped(_ sender: UIButton) {
-        Singletone.shared.increaseTotalPrice(price: menu.beverages[0].price)
-        printMenuItem(menuItem: menu.beverages[0])
+        if startProgramm == true {
+            Singletone.shared.increaseTotalPrice(price: menu.beverages[0].price)
+            printMenuItem(menuItem: menu.beverages[0])
+        }
     }
     
     @objc func buttonNapoleonTapped(_ sender: UIButton) {
-        Singletone.shared.increaseTotalPrice(price: menu.dessert.price)
-        printMenuItem(menuItem: menu.dessert)
+        if startProgramm == true {
+            Singletone.shared.increaseTotalPrice(price: menu.dessert.price)
+            printMenuItem(menuItem: menu.dessert)
+        }
     }
     
     @objc func buttonCoffeAmericanoTapped(_ sender: UIButton) {
-        Singletone.shared.increaseTotalPrice(price: menu.beverages[1].price)
-        printMenuItem(menuItem: menu.beverages[1])
+        if startProgramm == true {
+            Singletone.shared.increaseTotalPrice(price: menu.beverages[1].price)
+            printMenuItem(menuItem: menu.beverages[1])
+        }
     }
     
     @objc func buttonStartTapped(_ sender: UIButton) {
+        startProgramm = true
         buttonStart.backgroundColor = .gray
         buttonEnd.backgroundColor = .red
         Singletone.shared.totalPrice = 0
@@ -264,6 +276,7 @@ class ViewController: UIViewController {
     }
     
     @objc func buttonEndTapped(_ sender: UIButton) {
+        startProgramm = false
         buttonEnd.backgroundColor = .gray
         buttonStart.backgroundColor = .green
         print(Singletone.shared.totalPrice)
