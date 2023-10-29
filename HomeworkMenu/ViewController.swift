@@ -11,6 +11,8 @@ class Singletone {
     
     static let shared = Singletone()
     var totalPrice: Int = 0
+    let menu: Menu = Menu(snacks: sendwitch, mainMenu: steik, beverages: [coffeeLatte, coffeeAmericano], dessert: napoleon)
+    
     private init() {}
     
     func increaseTotalPrice(price: Int) {
@@ -18,13 +20,6 @@ class Singletone {
     }
 }
 
-class Restaurant {
-    let menu: Menu
-    
-    init(menu: Menu) {
-        self.menu = menu
-    }
-}
 
 
 class Menu {
@@ -104,11 +99,8 @@ func printMenuItem(menuItem: MenuItem) {
     print("\(menuItem.name) \(menuItem.price) рублей")
 }
 
-let menu = Menu(snacks: sendwitch, mainMenu: steik, beverages: [coffeeLatte, coffeeAmericano], dessert: napoleon)
-
 var isShiftStarted = false
 
-let restaurant = Restaurant(menu: menu)
 
 
 
@@ -118,27 +110,27 @@ class ViewController: UIViewController {
     
     let buttonSendwitch = {
         let buttonSendwitch = UIButton(type: .system)
-        buttonSendwitch.setTitle(menu.snacks.name, for: .normal)
+        buttonSendwitch.setTitle(Singletone.shared.menu.snacks.name, for: .normal)
         return buttonSendwitch
     }()
     let buttonSteik = {
         let buttonSteik = UIButton(type: .system)
-        buttonSteik.setTitle(menu.mainMenu.name, for: .normal)
+        buttonSteik.setTitle(Singletone.shared.menu.mainMenu.name, for: .normal)
         return buttonSteik
     }()
     let buttonCoffeeLatte = {
         let buttonCoffeeLatte = UIButton(type: .system)
-        buttonCoffeeLatte.setTitle(menu.beverages[0].name, for: .normal)
+        buttonCoffeeLatte.setTitle(Singletone.shared.menu.beverages[0].name, for: .normal)
         return buttonCoffeeLatte
     }()
     let buttonNapoleon = {
         let buttonNapoleon = UIButton(type: .system)
-        buttonNapoleon.setTitle(menu.dessert.name, for: .normal)
+        buttonNapoleon.setTitle(Singletone.shared.menu.dessert.name, for: .normal)
         return buttonNapoleon
     }()
     let buttonCoffeeAmericano = {
         let buttonCoffeeAmericano = UIButton(type: .system)
-        buttonCoffeeAmericano.setTitle(menu.beverages[1].name, for: .normal)
+        buttonCoffeeAmericano.setTitle(Singletone.shared.menu.beverages[1].name, for: .normal)
         return buttonCoffeeAmericano
     }()
     let buttonStart = {
@@ -244,36 +236,36 @@ class ViewController: UIViewController {
     
     @objc func buttonSendwitchTapped(_ sender: UIButton) {
         if isShiftStarted == true {
-            Singletone.shared.increaseTotalPrice(price: restaurant.menu.snacks.price)
-            printMenuItem(menuItem: restaurant.menu.snacks)
+            Singletone.shared.increaseTotalPrice(price: Singletone.shared.menu.snacks.price)
+            printMenuItem(menuItem: Singletone.shared.menu.snacks)
         }
     }
     
     @objc func buttonSteikTapped(_ sender: UIButton) {
         if isShiftStarted == true {
-            Singletone.shared.increaseTotalPrice(price: restaurant.menu.mainMenu.price)
-            printMenuItem(menuItem: restaurant.menu.mainMenu)
+            Singletone.shared.increaseTotalPrice(price: Singletone.shared.menu.mainMenu.price)
+            printMenuItem(menuItem: Singletone.shared.menu.mainMenu)
         }
     }
     
     @objc func buttonCoffeeLatteTapped(_ sender: UIButton) {
         if isShiftStarted == true {
-            Singletone.shared.increaseTotalPrice(price: restaurant.menu.beverages[0].price)
-            printMenuItem(menuItem: restaurant.menu.beverages[0])
+            Singletone.shared.increaseTotalPrice(price: Singletone.shared.menu.beverages[0].price)
+            printMenuItem(menuItem: Singletone.shared.menu.beverages[0])
         }
     }
     
     @objc func buttonNapoleonTapped(_ sender: UIButton) {
         if isShiftStarted == true {
-            Singletone.shared.increaseTotalPrice(price: restaurant.menu.dessert.price)
-            printMenuItem(menuItem: restaurant.menu.dessert)
+            Singletone.shared.increaseTotalPrice(price: Singletone.shared.menu.dessert.price)
+            printMenuItem(menuItem: Singletone.shared.menu.dessert)
         }
     }
     
     @objc func buttonCoffeAmericanoTapped(_ sender: UIButton) {
         if isShiftStarted == true {
-            Singletone.shared.increaseTotalPrice(price: restaurant.menu.beverages[1].price)
-            printMenuItem(menuItem: restaurant.menu.beverages[1])
+            Singletone.shared.increaseTotalPrice(price: Singletone.shared.menu.beverages[1].price)
+            printMenuItem(menuItem: Singletone.shared.menu.beverages[1])
         }
     }
     
